@@ -90,5 +90,5 @@ iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 The detailed design and experiment results have been accepted as a regular paper by _IEEE Transactions on Mobile Computing_. Please cite the paper when appropriate.
 
 <blockquote>
-Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks", IEEE Transactions on Mobile Computing, 2023. (Accepted)
+Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks", IEEE Transactions on Mobile Computing, 2023. (Early Access: https://ieeexplore.ieee.org/document/10107444)
 </blockquote>
