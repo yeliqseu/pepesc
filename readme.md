@@ -122,5 +122,5 @@ iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 
 PEPesc的详细设计和测试结果，请参阅和引用如下论文：
 <blockquote>
-Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks", IEEE Transactions on Mobile Computing, 2023. (Accepted)
+Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks", IEEE Transactions on Mobile Computing, 2023. (Early Access: https://ieeexplore.ieee.org/document/10107444)
 </blockquote>
