@@ -74,8 +74,8 @@ streamc.enqueue_packet.restype  = c_int
 streamc.output_repair_packet.argtypes = [POINTER(encoder)]
 streamc.output_repair_packet.restype  = POINTER(packet)
 
-streamc.output_repair_packet_given_width.argtypes = [POINTER(encoder), c_int]
-streamc.output_repair_packet_given_width.restype  = POINTER(packet)
+streamc.output_repair_packet_short.argtypes = [POINTER(encoder), c_int]
+streamc.output_repair_packet_short.restype  = POINTER(packet)
 
 streamc.output_source_packet.argtypes = [POINTER(encoder)]
 streamc.output_source_packet.restype  = POINTER(packet)
