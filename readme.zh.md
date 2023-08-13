@@ -45,14 +45,14 @@ PEPesc依靠iptables提供的代理工具TPROXY拦截TCP连接请求，将符合
 节点B以root权限执行以下命令，拦截来自节点A的TCP流量，导向PEPesc所侦听的9999端口：
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 --destination 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
 节点C以root权限执行以下命令，拦截来自节点D的TCP流量，导向PEPesc所侦听的9999端口：：
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 --destination 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
@@ -117,6 +117,45 @@ iperf -s -p 10000 -i 1
 ```
 iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 ```
+
+## 替代方案：使用Mininet模拟网络拓扑测试PEPesc
+
+为了让可能没有现成网络环境的用户能够快速部署和试用PEPesc，这里我们还提供了一个mininet脚本，用于模拟4节点线路网络拓扑。您可以使用该脚本在模拟网络中使用PEPesc。
+
+首先, 为root用户添加脚本可执行权限：
+
+```
+cd Mininet-scripts
+chmod u+x *.sh
+```
+
+接着，以root权限运行python脚本：
+
+```
+sudo python 4_nodes_topo.py
+```
+
+然后，打开四个节点主机终端：
+
+```
+xterm nodeA nodeB nodeC nodeD
+```
+
+节点B运行bash脚本：
+
+```
+sh deploy-proxy-on-node-b.sh
+```
+
+节点C运行bash脚本：
+
+```
+sh deploy-proxy-on-node-c.sh
+```
+
+最后，依据前文所示部署运行PEPesc。其中PEPesc使用的IP需要更改为`10.0.1.2`和`10.0.1.3`。
+
+注：该脚本模拟卫星链路的默认条件为：带宽20Mbps，单向时延300ms，随机丢包率1%。若需要自定义，请更改脚本第52行。
 
 ## 论文引用
 
