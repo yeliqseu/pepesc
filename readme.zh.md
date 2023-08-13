@@ -45,14 +45,14 @@ PEPesc依靠iptables提供的代理工具TPROXY拦截TCP连接请求，将符合
 节点B以root权限执行以下命令，拦截来自节点A的TCP流量，导向PEPesc所侦听的9999端口：
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 --destination 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
 节点C以root权限执行以下命令，拦截来自节点D的TCP流量，导向PEPesc所侦听的9999端口：：
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 --destination 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
