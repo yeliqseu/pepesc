@@ -89,13 +89,14 @@ iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 
 To allow users who may not have a ready network environment to quickly deploy and try PEPesc, here we also provide a mininet script, which simulates a 4-node line network topology. You can use the script to try PEPesc in the emulated network.
 
-First, download the mininet script:
+First, add executable permission for root :
 
 ```
-<https://drive.google.com/file/d/1Z7NOoAuN1yimyVyJbaZVEyj_asKv1-jx/view?usp=drive_web>
+cd Mininet-scripts
+chmod u+x *.sh
 ```
 
-Second, run the script as root:
+Second, run the python script as root:
 
 ```
 sudo python 4_nodes_topo.py
@@ -107,19 +108,17 @@ Thild, open the terminals of the hosts:
 xterm nodeA nodeB nodeC nodeD
 ```
 
-On NodeB, run:
+On NodeB, run the bash script:
 
-    sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 10.0.0.1 --destination 10.0.2.4 -j TPROXY --on-port 9999 --tproxy-mark 1
-    ip rule add fwmark 1 lookup 101
-    ip route add local 0.0.0.0/0 dev lo table 101
+```
+sh deploy-proxy-on-node-b.sh
+```
 
-On NodeC, run:
+On NodeC, run the bash script:
 
-    sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 10.0.2.4 --destination 10.0.0.1 -j TPROXY --on-port 9999 --tproxy-mark 1
-    ip rule add fwmark 1 lookup 101
-    ip route add local 0.0.0.0/0 dev lo table 101
+```
+sh deploy-proxy-on-node-c.sh
+```
 
 Then, use PEPesc according to the section "PEPesc Deployment".The IP used by PEPesc needs to be changed to `10.0.1.2` and `10.0.1.3`.
 

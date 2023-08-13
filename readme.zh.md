@@ -122,37 +122,36 @@ iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 
 为了让可能没有现成网络环境的用户能够快速部署和试用PEPesc，这里我们还提供了一个mininet脚本，用于模拟4节点线路网络拓扑。您可以使用该脚本在模拟网络中使用PEPesc。
 
-首先，下载Mininet脚本：
+首先, 为root用户添加脚本可执行权限：
 
 ```
-<https://drive.google.com/file/d/1Z7NOoAuN1yimyVyJbaZVEyj_asKv1-jx/view?usp=drive_web>
+cd Mininet-scripts
+chmod u+x *.sh
 ```
 
-接着，以root权限运行该脚本：
+接着，以root权限运行python脚本：
 
 ```
 sudo python 4_nodes_topo.py
 ```
 
-然后, 打开四个节点主机终端：
+然后，打开四个节点主机终端：
 
 ```
 xterm nodeA nodeB nodeC nodeD
 ```
 
-节点B运行：
+节点B运行bash脚本：
 
-    sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 10.0.0.1 --destination 10.0.2.4 -j TPROXY --on-port 9999 --tproxy-mark 1
-    ip rule add fwmark 1 lookup 101
-    ip route add local 0.0.0.0/0 dev lo table 101
+```
+sh deploy-proxy-on-node-b.sh
+```
 
-节点C运行：
+节点C运行bash脚本：
 
-    sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 10.0.2.4 --destination 10.0.0.1 -j TPROXY --on-port 9999 --tproxy-mark 1
-    ip rule add fwmark 1 lookup 101
-    ip route add local 0.0.0.0/0 dev lo table 101
+```
+sh deploy-proxy-on-node-c.sh
+```
 
 最后，依据前文所示部署运行PEPesc。其中PEPesc使用的IP需要更改为`10.0.1.2`和`10.0.1.3`。
 
