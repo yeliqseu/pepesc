@@ -564,7 +564,7 @@ class pepApp :
             # Decide whether to send repair packet
             if self.TimeToSendRepairPacket() == True :
                 if random.uniform(0, 1) < 0.95 :
-                    cpkt = streamc.output_repair_packet_given_width(self.m_enc, 128)
+                    cpkt = streamc.output_repair_packet_short(self.m_enc, 128)
                 else :
                     cpkt = streamc.output_repair_packet(self.m_enc)
             # Decide whether to send source packet
