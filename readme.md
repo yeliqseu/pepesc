@@ -34,14 +34,14 @@ PEPesc relies on iptables's TPRORXY to intercept TCP connections, where the spec
 Run the following commands on node B as root to intercept TCP traffic from node B:
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.37 --destination 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
 Run the following commands on node C to intercept TCP traffic from node D:
 
     sysctl -w net.ipv4.ip_forward=1
-    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 -j TPROXY --on-port 9999 --tproxy-mark 1
+    iptables -t mangle -A PREROUTING -p tcp --source 172.20.35.38 --destination 172.20.35.37 -j TPROXY --on-port 9999 --tproxy-mark 1
     ip rule add fwmark 1 lookup 101
     ip route add local 0.0.0.0/0 dev lo table 101
 
@@ -84,6 +84,46 @@ On node A run:
 ```
 iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 ```
+
+## Alternative: Test PEPesc Using an Mininet-Emulated Network Topology
+
+To allow users who may not have a ready network environment to quickly deploy and try PEPesc, here we also provide a mininet script, which simulates a 4-node line network topology. You can use the script to try PEPesc in the emulated network.
+
+First, download the mininet script:
+
+```
+<https://drive.google.com/file/d/1Z7NOoAuN1yimyVyJbaZVEyj_asKv1-jx/view?usp=drive_web>
+```
+
+Second, run the script as root:
+
+```
+sudo python 4_nodes_topo.py
+```
+
+Thild, open the terminals of the hosts:
+
+```
+xterm nodeA nodeB nodeC nodeD
+```
+
+On NodeB, run:
+
+    sysctl -w net.ipv4.ip_forward=1
+    iptables -t mangle -A PREROUTING -p tcp --source 10.0.0.1 --destination 10.0.2.4 -j TPROXY --on-port 9999 --tproxy-mark 1
+    ip rule add fwmark 1 lookup 101
+    ip route add local 0.0.0.0/0 dev lo table 101
+
+On NodeC, run:
+
+    sysctl -w net.ipv4.ip_forward=1
+    iptables -t mangle -A PREROUTING -p tcp --source 10.0.2.4 --destination 10.0.0.1 -j TPROXY --on-port 9999 --tproxy-mark 1
+    ip rule add fwmark 1 lookup 101
+    ip route add local 0.0.0.0/0 dev lo table 101
+
+Then, use PEPesc according to the section "PEPesc Deployment".The IP used by PEPesc needs to be changed to `10.0.1.2` and `10.0.1.3`.
+
+Ps: The default conditions for the mininet script to simulate a satellite link are: 20Mbps, 300ms, 1%. If you need to change, go to line 52 of the script.
 
 ## Paper Citation
 
