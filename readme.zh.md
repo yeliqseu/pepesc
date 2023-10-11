@@ -120,7 +120,7 @@ iperf -c 172.20.35.38 -p 10000 -i 1 -t 120
 
 ## 替代方案：使用Mininet模拟网络拓扑测试PEPesc
 
-为了让可能没有现成网络环境的用户能够快速部署和试用PEPesc，这里我们还提供了一个mininet脚本，用于模拟4节点线路网络拓扑。您可以使用该脚本在模拟网络中使用PEPesc。
+如果没有现成网络环境，我们提供了一个Mininet脚本，创建类似前面4节点线形网络拓扑，使用户能能够快速部署和试用PEPesc。
 
 首先, 为root用户添加脚本可执行权限：
 
@@ -129,10 +129,10 @@ cd Mininet-scripts
 chmod u+x *.sh
 ```
 
-接着，以root权限运行python脚本：
+接着，以root权限运行Mininet网络模拟脚本：
 
 ```
-sudo python 4_nodes_topo.py
+sudo python3 4_nodes_topo.py
 ```
 
 然后，打开四个节点主机终端：

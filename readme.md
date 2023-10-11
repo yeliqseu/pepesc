@@ -99,7 +99,7 @@ chmod u+x *.sh
 Second, run the python script as root:
 
 ```
-sudo python 4_nodes_topo.py
+sudo python3 4_nodes_topo.py
 ```
 
 Thild, open the terminals of the hosts:

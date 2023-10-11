@@ -1,9 +1,8 @@
 import os
 
-from mininet.net import Mininet, MininetE
-from mininet.node import Controller,RemoteController
+from mininet.net import Mininet
+from mininet.node import Node, Controller, RemoteController
 from mininet.link import TCLink
-from mininet.node import ContainerHost
 from mininet.topo import Topo
 from mininet.cli import CLI
 from mininet.log import info, setLogLevel
@@ -26,7 +25,7 @@ nodeC_eth2 = '10.0.1.3/24'
 nodeC_eth1 = '10.0.2.3/24'
 nodeD_eth1 = '10.0.2.4/24'
 
-class LinuxRouter( ContainerHost ):
+class LinuxRouter( Node ):
     "A Node with IP forwarding enabled."
 
     def config( self, **params ):
@@ -58,7 +57,6 @@ class TestMininet(Mininet):
 def run():
     "Test linux router"
     topo = NetworkTopo()
-    #net = MininetE(controller=None, topo=topo)	# no controller
     net = TestMininet(controller=RemoteController,topo=topo)
     net.start()
     info( '*** Routing Table on Router:\n' )
