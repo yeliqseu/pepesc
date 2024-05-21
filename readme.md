@@ -47,7 +47,11 @@ Run the following commands on node C to intercept TCP traffic from node D:
 
 ## PEPesc Deployment
 ### Compile and Link to Streaming Coding Library
-PEPesc needs SC to achieve reliable packet transmissions on top of UDP between the entities, so you need to obtain the SC library. Due to some reasons, the library is not public anymore. **Please send a request** to <ins>yeli[AT]ntu.edu.cn</ins> from an **institutional email** with your name to obtain a copy of source codes (note that public domain emails such as qq.com, gmail.com, hotmail.com will **NOT** get a reply). Then, compile the source codes:
+PEPesc needs SC to achieve reliable packet transmissions on top of UDP between the entities, so you need to obtain the SC library. 
+
+**IMPORTANT NOTICE**: Due to some reasons, the library is not public anymore. Please send a request to <ins>yeli[AT]ntu.edu.cn</ins> from an **institutional email** with your name to obtain a copy of source codes. (public domain emails such as qq.com, gmail.com will **NOT** be replied). 
+
+Compile the source codes:
 
     unzip streamc.zip
     cd streamc/
