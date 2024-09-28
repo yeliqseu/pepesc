@@ -133,5 +133,5 @@ Ps: The default conditions for the mininet script to simulate a satellite link a
 The detailed design and experiment results have been accepted as a regular paper by _IEEE Transactions on Mobile Computing_. Please cite the paper when appropriate.
 
 <blockquote>
-Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks", IEEE Transactions on Mobile Computing, 2023. (Early Access: https://ieeexplore.ieee.org/document/10107444)
+Ye Li, Liang Chen, Li Su, Kanglian Zhao, Jue Wang, Yongjie Yang, Ning Ge, "PEPesc: A TCP Performance Enhancing Proxy for Non-Terrestrial Networks," in IEEE Transactions on Mobile Computing, vol. 23, no. 4, pp. 3060-3076, April 2024, doi: 10.1109/TMC.2023.3269436.
 </blockquote>
