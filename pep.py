@@ -177,7 +177,7 @@ class pepApp :
         # Parameters used for streaming coding
         self.m_cp           = parameters()
         self.m_cp.gfpower   = 8
-        self.m_cp.pktsize   = 0
+        self.m_cp.pktsize   = PacketSize
         self.m_cp.repfreq   = 0.0               # This Sc parameter is not used in PEP, where the frequency of sending repair packet is determine by TimeToSendRepairPacket
         self.m_cp.seed      = 0
         
@@ -276,10 +276,10 @@ class pepApp :
         self.m_lastProbeArrivedId   = -1
 
 
-    def SetAttribute(self, args, packetSize) :
+    def SetAttribute(self, args) :
         self.m_selfAddress   = (args.selfIp, args.selfPort)
         self.m_peerAddress   = (args.peerIp, args.peerPort)
-        self.m_cp.pktsize    = packetSize
+        # self.m_cp.pktsize    = packetSize
         self.m_detailFlag    = args.detail
         self.m_activeProbeBw = not args.deactivateProbeBw#False if args.maxBw else not args.deactivateProbeBw
         self.m_maxAllowedBw  = float(args.maxBw[0:-4]) / PacingGain * 1024 * 1024 / (ScPacketSize * 8) if args.maxBw else None
@@ -1290,7 +1290,7 @@ if __name__ == "__main__" :
                         format='%(levelname)s: [%(asctime)s] %(message)s')
 
     pep = pepApp()
-    pep.SetAttribute(args, PacketSize)
+    pep.SetAttribute(args)
 
     if pep.m_detailFlag :
             print("[%s][%s:%d] PEPesc starting..."\
