@@ -62,9 +62,11 @@ PEPesc依靠iptables提供的代理工具TPROXY拦截TCP连接请求，将符合
 
 ## 部署PEPesc
 ### 编译和链接动态库
-PEPesc基于流编码实现可靠UDP传输，运行前需要先编译和允许链接流编码动态库,执行
+PEPesc基于流编码实现可靠UDP传输，运行前需要先编译和允许链接流编码动态库。
+**重要提示**：由于某些原因，该动态库不再公开。我们在该仓库放置了两个预编译的libsttreamc.so(分别在Ubuntu 22.04，24.04上编译)。如果您需要源代码副本，请使用**机构邮箱向**<ins>yeli[AT]ntu.edu.cn</ins>发送申请，并附上您的姓名。（公共域名邮箱如qq.com、gmail.com将不予回复）
+编译源代码
 
-    git clone https://github.com/yeliqseu/streamc
+    unzip streamc.zip
     cd streamc/
     make clean
     make libstreamc.so
